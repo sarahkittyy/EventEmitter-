@@ -123,6 +123,10 @@ make
 
 Include the `include/` directory, and link with `-leepp`
 
+## TODO
+
+* Automatically asynchronously launching inherited start() method for significantly less boilerplate.
+
 ---
 
 ## Why?
