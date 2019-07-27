@@ -13,23 +13,30 @@ namespace EEPP
 /**
  * @brief Event emitter class.
  * 
- * @tparam CallbackType The type of arguments passed to the on() callback. Example: `<int, float> -> void(int, float)`
+ * @tparam Args The type of arguments passed to the on() callback. Example: `<int, float> -> void(int, float)`
  */
 template <typename... Args>
 class EventEmitter
 {
 private:
+	/// For readablility.
 	typedef std::function<void(Args...)> Callback;
 
 public:
-	EventEmitter()
-	{
-	}
-
+	/**
+	 * @brief Here for inheritability.
+	 * 
+	 */
 	virtual ~EventEmitter()
 	{
 	}
 
+	/**
+	 * @brief Attach a callback to an event.
+	 * 
+	 * @param event The event emitted.
+	 * @param callback The callback to run when that event fires.
+	 */
 	void on(std::string event, std::function<void(Args...)> callback)
 	{
 		//Append the callback to the callback map.
@@ -37,7 +44,13 @@ public:
 	}
 
 protected:
-	void emit(std::string event, Args&&... args)
+	/**
+	 * @brief Emit an event to all subscribed callbacks.
+	 * 
+	 * @param event The name of the event.
+	 * @param args The args to pass to the callback.
+	 */
+	void emit(std::string event, Args... args)
 	{
 		// Get the list of event callbacks.
 		std::vector<Callback>& callbacks = mCallbacks[event];
